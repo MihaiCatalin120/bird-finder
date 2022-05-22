@@ -30,21 +30,26 @@ const BirdSchema = new Schema({
     type: String,
     required: [true, 'The name is required'],
   },
+  scientificName: {
+    type: String,
+    required: [true, 'The scientific name is required'],
+  },
+  wikiLink: {type: String},
   rarity: {
-    type: rarityType,
+    type: String,
     required: [true, 'The rarity is required'],
   },
   head: {
     crownColor: {
-      type: colorType,
+      type: String,
       required: [true, 'The crown color is required'],
     },
     eyeStripeColor: {
-      type: colorType,
+      type: String,
       required: [true, 'The eye stripe color is required'],
     },
     beakColor: {
-      type: colorType,
+      type: String,
       required: [true, 'The beak color is required'],
     },
     beakShape: {
@@ -54,59 +59,67 @@ const BirdSchema = new Schema({
     beakLength: {
       type: String,
       required: [true, 'The beak length is required'],
-    },
+    }
   },
   body: {
     throatColor: {
-      type: colorType,
+      type: String,
       required: [true, 'The throat color is required'],
     },
     breastColor: {
-      type: colorType,
+      type: String,
       required: [true, 'The breast color is required'],
     },
     pattern: {
       type: String,
       required: [true, 'The throat color is required'],
-    },
+    }
   },
   wing: {
     upperColor: {
-      type: colorType,
+      type: String,
       required: [true, 'The upperwing color is required'],
     },
     underColor: {
-      type: colorType,
+      type: String,
       required: [true, 'The underwing color is required'],
     },
     shape: {
       type: String,
       required: [true, 'The wing shape is required'],
-    },
+    }
   },
-  foot: {
+  leg: {
     color: {
-      type: colorType,
-      required: [true, 'The foot color is required'],
+      type: String,
+      required: [true, 'The leg color is required'],
+    },
+    length: {
+      type: String,
+      required: [true, 'The leg length is required'],
     },
     shape: {
       type: String,
-      required: [true, 'The foot shape is required'],
-    },
+      required: [true, 'The leg shape is required'],
+    }
   },
   tail: {
     color: {
-      type: colorType,
+      type: String,
       required: [true, 'The tail color is required'],
+    },
+    length: {
+      type: String,
+      required: [true, 'The tail length is required'],
     },
     shape: {
       type: String,
       required: [true, 'The tail shape is required'],
-    },
-  },
+    }
+  }
 });
 
 // Create model for bird
-const Bird = mongoose.model('bird', BirdSchema);
+const Bird = mongoose.model('Birds', BirdSchema);
 
 module.exports = Bird;
