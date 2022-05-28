@@ -1,10 +1,11 @@
 import { observer } from "mobx-react";
+import FormPage from "./bird-form";
 
 
 const MainPage= () => {
     return <div>
-        Hi
+        <FormPage />
     </div>
 }
 
-export default observer(MainPage)
+export default observer(MainPage);

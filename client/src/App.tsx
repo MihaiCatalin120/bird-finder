@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { createTheme, ThemeProvider } from "@mui/material";
 import { BrowserRouter } from "react-router-dom";
@@ -10,8 +9,8 @@ const App = () => {
   const theme = createTheme({
 		palette: {
       text: {
-        primary: "#fff",
-        secondary: "#ddd"
+        primary: "#37D67A",
+        secondary: "#b8e986"
       },
       background: { paper: "#000" }
 		}
