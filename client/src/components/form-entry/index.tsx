@@ -1,19 +1,19 @@
 import { Accordion, AccordionDetails, AccordionSummary, MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
 import { useState } from "react";
-import styles from "./form-entry.module.scss";
-
 
 interface FormEntryProps {
     property: string;
     options: string[];
+    helpContent: JSX.Element;
+    selectedOption: string;
 }
 
-const FormEntry = ({ property, options }: FormEntryProps) => {
+const FormEntry = ({ property, options, helpContent, selectedOption }: FormEntryProps) => {
 
-    const [color, setColor] = useState('');
+    const [currentOption, setCurrentOption] = useState(selectedOption);
 
     const handleChange = (event: SelectChangeEvent) => {
-        setColor(event.target.value);
+        setCurrentOption(event.target.value);
     };
 
     return (
@@ -24,7 +24,7 @@ const FormEntry = ({ property, options }: FormEntryProps) => {
                     {property}
                 </Typography>
                 <Select
-                    value={color}
+                    value={currentOption}
                     onChange={handleChange}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}
@@ -33,10 +33,14 @@ const FormEntry = ({ property, options }: FormEntryProps) => {
                         <MenuItem value={option}>{option}</MenuItem>
                     ))}
                 </Select>
+
+                <Typography>
+                    
+                </Typography>
             </AccordionSummary>
             <AccordionDetails>
                 <Typography>
-                    Help for {property}
+                    {helpContent}
                 </Typography>
             </AccordionDetails>
         </Accordion>

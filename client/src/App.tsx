@@ -3,16 +3,19 @@ import './App.css';
 import { createTheme, ThemeProvider } from "@mui/material";
 import { BrowserRouter } from "react-router-dom";
 import PageRoutes from "./pages/main";
+import { green } from '@mui/material/colors';
+import '@fontsource/montserrat';
 
 const App = () => {
 
   const theme = createTheme({
 		palette: {
-      text: {
-        primary: "#37D67A",
-        secondary: "#b8e986"
+      primary: {
+        main: green[500]
       },
-      background: { paper: "#000" }
+      secondary: {
+        main: '#000000'
+      }
 		}
 	});
 
