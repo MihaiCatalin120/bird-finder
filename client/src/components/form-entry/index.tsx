@@ -1,47 +1,46 @@
 import { Accordion, AccordionDetails, AccordionSummary, MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
-import { useState } from "react";
 
 interface FormEntryProps {
     property: string;
     options: string[];
     helpContent: JSX.Element;
-    selectedOption: string;
+    selectedOption: Object;
+    propertySetter: (selectedOption: string) => void;
 }
 
-const FormEntry = ({ property, options, helpContent, selectedOption }: FormEntryProps) => {
-
-    const [currentOption, setCurrentOption] = useState(selectedOption);
+const FormEntry = ({ property, options, helpContent, selectedOption, propertySetter }: FormEntryProps) => {
 
     const handleChange = (event: SelectChangeEvent) => {
-        setCurrentOption(event.target.value);
+        propertySetter(event.target.value);
+        selectedOption = event.target.value;
     };
 
     return (
-        //TODO: styles
         <Accordion>
             <AccordionSummary>
-                <Typography>
+                <Typography
+                    sx={{ mt: 2, mr: 1 }}
+                >
                     {property}
                 </Typography>
                 <Select
-                    value={currentOption}
+                    value={selectedOption.toString()}
                     onChange={handleChange}
                     displayEmpty
                     inputProps={{ 'aria-label': 'Without label' }}
                 >
                     {options.map(option => (
-                        <MenuItem value={option}>{option}</MenuItem>
+                        <MenuItem key={option} value={option}>{option}</MenuItem>
                     ))}
                 </Select>
-
-                <Typography>
-                    
+                <Typography
+                    sx={{ ml: "auto", mr: 0, my: "auto" }}
+                >
+                    Need help?
                 </Typography>
             </AccordionSummary>
             <AccordionDetails>
-                <Typography>
-                    {helpContent}
-                </Typography>
+                {helpContent}
             </AccordionDetails>
         </Accordion>
     );

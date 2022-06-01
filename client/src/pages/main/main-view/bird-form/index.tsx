@@ -1,46 +1,60 @@
 import {
-    Stack, Typography
+    Stack, Stepper, Step, StepContent, Button, Box, Paper, Typography, StepLabel
 } from "@mui/material";
 import { observer } from "mobx-react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import FormEntry from "../../../../components/form-entry";
 import { BirdFormContext } from "./bird-form-store";
-
-
-const CrownColorHelp = () => { 
-    return (<>
-    <p> Crown color refers to the color present in the area on top of the bird's head. </p>
-    </>
-    ); 
-}
-const EyeStripeColorHelp = () => {
-     return (<>
-     <p> Eye stripe color refers to the color present in the area on the level of the bird's eyes. </p>
-     </>
-     ); 
-}
-const BeakColorHelp = () => { 
-    return (<>
-    <p> The color of the bird's beak.</p>
-    </>
-    );
-}
-const BeakShapeHelp = () => { 
-    return (<>
-    <p> The shape of the bird's beak.</p>
-    <p> For example, a regular duck has a rounded beak while a stork has a pointed beak. </p>
-    </>
-    );
-}
-const BeakLengthHelp = () => { 
-    return (<>
-    <p> The length of the bird's beak.</p>
-    </>
-    );
-}
+import {
+    CrownColorHelp, EyeStripeColorHelp, BeakColorHelp, BeakShapeHelp, BeakLengthHelp,
+    ThroatColorHelp, BreastColorHelp, BodyPatternHelp,
+    UnderwingColorHelp, UpperwingColorHelp, WingShapeHelp,
+    LegColorHelp, LegLengthHelp, LegShapeHelp,
+    TailColorHelp, TailLengthHelp, TailShapeHelp
+} from "./bird-form-help-sections";
 
 const FormPage = () => {
-    const { bird } = useContext(BirdFormContext);
+    const {
+        bird,
+        activeStep,
+        nextStep,
+        backStep,
+        resetStep,
+        setCrownColor,
+        setEyeStripeColor,
+        setBeakColor,
+        setBeakShape,
+        setBeakLength,
+        setThroatColor,
+        setBreastColor,
+        setColorPattern,
+        setUpperwingColor,
+        setUnderwingColor,
+        setWingShape,
+        setLegColor,
+        setLegLength,
+        setLegShape,
+        setTailColor,
+        setTailLength,
+        setTailShape,
+        submitDetails
+    } = useContext(BirdFormContext);
+
+    const handleNext = () => {
+        nextStep();
+    };
+
+    const handleBack = () => {
+        backStep();
+    };
+
+    const handleReset = () => {
+        resetStep();
+    };
+
+    const handleSubmit = () => {
+        submitDetails();
+    }
 
     const colorOptions = ["none 🚫 / don't know 🤔", "black ⬛", "white ⬜", "red 🟥", "green 🟩", "blue 🟦", "brown 🟫", "beige (lighter 🟫)", "pink 🌸", "orange 🟧", "grey 💿"];
     const shapeOptions = ["none 🚫 / don't know 🤔", "pointed", "rounded"];
@@ -49,41 +63,168 @@ const FormPage = () => {
     const legShapeOptions = ["none 🚫 / don't know 🤔", "normal", "webbed"];
     const tailShapeOptions = ["none 🚫 / don't know 🤔", "fan", "forked", "squared"];
 
+    const steps = [
+        {
+            label: 'Select crown color:',
+            component: <FormEntry property="Crown color:" options={colorOptions} helpContent={CrownColorHelp()} selectedOption={bird.head.crownColor} propertySetter={setCrownColor}></FormEntry>
+        },
+        {
+            label: 'Select eye stripe color:',
+            component: <FormEntry property="Eye stripe color:" options={colorOptions} helpContent={EyeStripeColorHelp()} selectedOption={bird.head.eyeStripeColor} propertySetter={setEyeStripeColor}></FormEntry>
+        },
+        {
+            label: 'Select beak color:',
+            component: <FormEntry property="Beak color:" options={colorOptions} helpContent={BeakColorHelp()} selectedOption={bird.head.beakColor} propertySetter={setBeakColor}></FormEntry>
+        },
+        {
+            label: 'Select beak length:',
+            component: <FormEntry property="Beak length:" options={lengthOptions} helpContent={BeakLengthHelp()} selectedOption={bird.head.beakLength} propertySetter={setBeakLength}></FormEntry>
+        },
+        {
+            label: 'Select beak shape:',
+            component: <FormEntry property="Beak shape:" options={shapeOptions} helpContent={BeakShapeHelp()} selectedOption={bird.head.beakShape} propertySetter={setBeakShape}></FormEntry>
+        },
+        {
+            label: 'Select throat color:',
+            component: <FormEntry property="Throat color:" options={colorOptions} helpContent={ThroatColorHelp()} selectedOption={bird.body.throatColor} propertySetter={setThroatColor}></FormEntry>
+        },
+        {
+            label: 'Select breast color:',
+            component: <FormEntry property="Breast color:" options={colorOptions} helpContent={BreastColorHelp()} selectedOption={bird.body.breastColor} propertySetter={setBreastColor}></FormEntry>
+        },
+        {
+            label: 'Select color pattern:',
+            component: <FormEntry property="Pattern:" options={patternOptions} helpContent={BodyPatternHelp()} selectedOption={bird.body.pattern} propertySetter={setColorPattern}></FormEntry>
+        },
+        {
+            label: 'Select upperwing color:',
+            component: <FormEntry property="Upper wing color:" options={colorOptions} helpContent={UpperwingColorHelp()} selectedOption={bird.wing.upperColor} propertySetter={setUpperwingColor}></FormEntry>
+        },
+        {
+            label: 'Select underwing color:',
+            component: <FormEntry property="Under wing color:" options={colorOptions} helpContent={UnderwingColorHelp()} selectedOption={bird.wing.underColor} propertySetter={setUnderwingColor}></FormEntry>
+        },
+        {
+            label: 'Select wing shape:',
+            component: <FormEntry property="Shape:" options={shapeOptions} helpContent={WingShapeHelp()} selectedOption={bird.wing.shape} propertySetter={setWingShape}></FormEntry>
+        },
+        {
+            label: 'Select leg color:',
+            component: <FormEntry property="Leg color:" options={colorOptions} helpContent={LegColorHelp()} selectedOption={bird.leg.color} propertySetter={setLegColor}></FormEntry>
+        },
+        {
+            label: 'Select leg length:',
+            component: <FormEntry property="Leg length:" options={lengthOptions} helpContent={LegLengthHelp()} selectedOption={bird.leg.length} propertySetter={setLegLength}></FormEntry>
+        },
+        {
+            label: 'Select leg shape:',
+            component: <FormEntry property="Tail shape:" options={legShapeOptions} helpContent={LegShapeHelp()} selectedOption={bird.tail.shape} propertySetter={setLegShape}></FormEntry>
+        },
+        {
+            label: 'Select tail color:',
+            component: <FormEntry property="Tail color:" options={colorOptions} helpContent={TailColorHelp()} selectedOption={bird.tail.color} propertySetter={setTailColor}></FormEntry>
+        },
+        {
+            label: 'Select tail length:',
+            component: <FormEntry property="Tail length:" options={lengthOptions} helpContent={TailLengthHelp()} selectedOption={bird.tail.length} propertySetter={setTailLength}></FormEntry>
+        },
+        {
+            label: 'Select tail shape:',
+            component: <FormEntry property="Tail shape:" options={tailShapeOptions} helpContent={TailShapeHelp()} selectedOption={bird.tail.shape} propertySetter={setTailShape}></FormEntry>
+        }
+    ];
+
     return (
-        <>
-        <Typography variant="h3">
-            Head
-        </Typography>
-        <FormEntry property="Crown color:" options={colorOptions} helpContent={CrownColorHelp()} selectedOption={bird.head.crownColor}></FormEntry>
-        <FormEntry property="Eye stripe color:" options={colorOptions} helpContent={EyeStripeColorHelp()} selectedOption={bird.head.eyeStripeColor}></FormEntry>
-        <FormEntry property="Beak color:" options={colorOptions} helpContent={BeakColorHelp()} selectedOption={bird.head.beakColor}></FormEntry>
-        <FormEntry property="Beak shape:" options={shapeOptions} helpContent={BeakShapeHelp()} selectedOption={bird.head.beakShape}></FormEntry>
-        <FormEntry property="Beak length:" options={lengthOptions} helpContent={BeakLengthHelp()} selectedOption={bird.head.beakLength}></FormEntry>
-        <Typography variant="h3">
-            Body
-        </Typography>
-        <FormEntry property="Throat color:" options={colorOptions} helpContent={CrownColorHelp()} selectedOption={bird.body.throatColor}></FormEntry>
-        <FormEntry property="Breast color:" options={colorOptions} helpContent={CrownColorHelp()} selectedOption={bird.body.breastColor}></FormEntry>
-        <FormEntry property="Pattern:" options={patternOptions} helpContent={CrownColorHelp()} selectedOption={bird.head.beakColor}></FormEntry>
-        <Typography variant="h3">
-            Wing
-        </Typography>
-        <FormEntry property="Upper wing color:" options={colorOptions} helpContent={CrownColorHelp()} selectedOption={bird.wing.upperColor}></FormEntry>
-        <FormEntry property="Under wing color:" options={colorOptions} helpContent={CrownColorHelp()} selectedOption={bird.wing.underColor}></FormEntry>
-        <FormEntry property="Shape:" options={shapeOptions} helpContent={CrownColorHelp()} selectedOption={bird.wing.shape}></FormEntry>
-        <Typography variant="h3">
-            Leg
-        </Typography>
-        <FormEntry property="Leg color:" options={colorOptions} helpContent={CrownColorHelp()} selectedOption={bird.leg.color}></FormEntry>
-        <FormEntry property="Leg length:" options={lengthOptions} helpContent={CrownColorHelp()} selectedOption={bird.leg.length}></FormEntry>
-        <FormEntry property="Leg shape:" options={legShapeOptions} helpContent={CrownColorHelp()} selectedOption={bird.leg.shape}></FormEntry>
-        <Typography variant="h3">
-            Tail
-        </Typography>
-        <FormEntry property="Tail color:" options={colorOptions} helpContent={CrownColorHelp()} selectedOption={bird.tail.color}></FormEntry>
-        <FormEntry property="Tail length:" options={lengthOptions} helpContent={CrownColorHelp()} selectedOption={bird.tail.length}></FormEntry>
-        <FormEntry property="Tail shape:" options={tailShapeOptions} helpContent={CrownColorHelp()} selectedOption={bird.tail.shape}></FormEntry>
-        </>
+        <Box
+            sx={{ mt: 2, ml: 3 }}
+        >
+            <Box>
+                <Typography variant="h3">
+                    Ready?
+                </Typography>
+                <Typography>
+                    General hints before you begin:
+                    <ul>
+                        <li>Only choose the options that you are sure about.</li>
+                        <li>Otherwise, just choose the don't know option.</li>
+                        <li>If multiple colors are present on a part, choose the most predominant one.</li>
+                        <li>You can always go back to a previous selected option.</li>
+                    </ul>
+                </Typography>
+            </Box>
+            <Stepper activeStep={activeStep} orientation="vertical">
+                {steps.map((step, index) => (
+                    <Step key={step.label}>
+                        <StepLabel
+                            optional={
+                                index >= 0 && index < 5 ? (
+                                    <Typography variant="caption">Head section</Typography>
+                                ) :
+                                    index >= 5 && index < 8 ? (
+                                        <Typography variant="caption">Body section</Typography>
+                                    ) :
+                                        index >= 8 && index < 11 ? (
+                                            <Typography variant="caption">Wing section</Typography>
+                                        ) :
+                                            index >= 11 && index < 14 ? (
+                                                <Typography variant="caption">Leg section</Typography>
+                                            ) :
+                                                index >= 14 && index < 16 ? (
+                                                    <Typography variant="caption">Tail section</Typography>
+                                                ) :
+                                                    index === 16 ? (
+                                                        <Typography variant="caption">Tail section (Last step)</Typography>
+                                                    ) : null
+                            }
+                        >
+                            {step.label}
+                        </StepLabel>
+                        <StepContent>
+                            {step.component}
+                            <Box sx={{ mb: 2 }}>
+                                <div>
+                                    <Button
+                                        variant="contained"
+                                        onClick={handleNext}
+                                        sx={{ mt: 1, mr: 1 }}
+                                    >
+                                        {index === steps.length - 1 ? 'Finish' : 'Continue'}
+                                    </Button>
+                                    <Button
+                                        disabled={index === 0}
+                                        onClick={handleBack}
+                                        sx={{ mt: 1, mr: 1 }}
+                                    >
+                                        Back
+                                    </Button>
+                                </div>
+                            </Box>
+                        </StepContent>
+                    </Step>
+                ))}
+            </Stepper>
+            {activeStep === steps.length && (
+                <Paper square elevation={0} sx={{ p: 3 }}>
+                    <Typography>Well done! Click submit to see results.</Typography>
+                    <Button
+                        variant="contained"
+                        onClick={handleSubmit}
+                        sx={{ mt: 1, mr: 1 }}
+                    >
+                        Submit
+                    </Button>
+                    <Button
+                        onClick={handleBack}
+                        sx={{ mt: 1, mr: 1 }}
+                    >
+                        Back
+                    </Button>
+                    <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
+                        Reset
+                    </Button>
+                </Paper>
+            )}
+        </Box>
     );
 }
 

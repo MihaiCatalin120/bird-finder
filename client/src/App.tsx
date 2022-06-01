@@ -11,10 +11,11 @@ const App = () => {
   const theme = createTheme({
 		palette: {
       primary: {
-        main: green[500]
+        main: green[500],
+        contrastText: '#fff'
       },
       secondary: {
-        main: '#000000'
+        main: '#fff'
       }
 		}
 	});

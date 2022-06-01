@@ -128,3 +128,4 @@ dist
 /server/yarn-error.log*
 
 /server/images
+client/src/images

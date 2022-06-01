@@ -1,8 +1,4 @@
-export interface Bird {
-    name: string;
-    scientificName: string;
-    wikiLink: string;
-    rarity: string;
+export interface BirdDetails {
     head: {
         crownColor: string;
         eyeStripeColor: string;
@@ -30,4 +26,11 @@ export interface Bird {
         length: string;
         shape: string;
     }
+}
+
+export interface BirdSummary {
+    name: string;
+    scientificName: string;
+    wikiLink: string;
+    rarity: string;
 }
