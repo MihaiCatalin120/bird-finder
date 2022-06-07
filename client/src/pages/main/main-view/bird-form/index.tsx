@@ -179,10 +179,10 @@ const FormPage = () => {
                                             index >= 11 && index < 14 ? (
                                                 <Typography variant="caption">Leg section</Typography>
                                             ) :
-                                                index >= 14 && index < 16 ? (
+                                                index >= 14 && index < 17 ? (
                                                     <Typography variant="caption">Tail section</Typography>
                                                 ) :
-                                                    index === 16 ? (
+                                                    index === 17 ? (
                                                         <Typography variant="caption">Tail section (Last step)</Typography>
                                                     ) : null
                             }
