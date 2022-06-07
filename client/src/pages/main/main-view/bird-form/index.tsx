@@ -1,5 +1,5 @@
 import {
-    Stack, Stepper, Step, StepContent, Button, Box, Paper, Typography, StepLabel, CircularProgress, Grid, Dialog, DialogContent
+    Stepper, Step, StepContent, Button, Box, Paper, Typography, StepLabel, CircularProgress, Grid, Dialog, DialogContent
 } from "@mui/material";
 import { observer } from "mobx-react";
 import { useContext, useState } from "react";
@@ -146,7 +146,7 @@ const FormPage = () => {
 
     return (
         <Box
-            sx={{ mt: 2, ml: 3 }}
+            sx={{ p: 2, backgroundColor: 'white' }}
         >
             <Box>
                 <Typography variant="h3">
