@@ -62,6 +62,10 @@ const BirdSchema = new Schema({
     }
   },
   body: {
+    size : {
+      type: String,
+      required: [true, "The body size is required"],
+    },
     throatColor: {
       type: String,
       required: [true, 'The throat color is required'],

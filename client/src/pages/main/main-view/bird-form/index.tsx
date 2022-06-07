@@ -1,5 +1,5 @@
 import {
-    Stack, Stepper, Step, StepContent, Button, Box, Paper, Typography, StepLabel
+    Stack, Stepper, Step, StepContent, Button, Box, Paper, Typography, StepLabel, CircularProgress, Grid, Dialog, DialogContent
 } from "@mui/material";
 import { observer } from "mobx-react";
 import { useContext, useState } from "react";
@@ -7,16 +7,20 @@ import FormEntry from "../../../../components/form-entry";
 import { BirdFormContext } from "./bird-form-store";
 import {
     CrownColorHelp, EyeStripeColorHelp, BeakColorHelp, BeakShapeHelp, BeakLengthHelp,
-    ThroatColorHelp, BreastColorHelp, BodyPatternHelp,
+    BodySizeHelp, ThroatColorHelp, BreastColorHelp, BodyPatternHelp,
     UnderwingColorHelp, UpperwingColorHelp, WingShapeHelp,
     LegColorHelp, LegLengthHelp, LegShapeHelp,
     TailColorHelp, TailLengthHelp, TailShapeHelp
 } from "./bird-form-help-sections";
+import ResultCard from "../../../../components/result-card";
 
 const FormPage = () => {
     const {
         bird,
         activeStep,
+        resultBirds,
+        submitPressed,
+        resultsLoaded,
         nextStep,
         backStep,
         resetStep,
@@ -25,6 +29,7 @@ const FormPage = () => {
         setBeakColor,
         setBeakShape,
         setBeakLength,
+        setBodySize,
         setThroatColor,
         setBreastColor,
         setColorPattern,
@@ -59,6 +64,7 @@ const FormPage = () => {
     const colorOptions = ["none 🚫 / don't know 🤔", "black ⬛", "white ⬜", "red 🟥", "green 🟩", "blue 🟦", "brown 🟫", "beige (lighter 🟫)", "pink 🌸", "orange 🟧", "grey 💿"];
     const shapeOptions = ["none 🚫 / don't know 🤔", "pointed", "rounded"];
     const lengthOptions = ["none 🚫 / don't know 🤔", "small", "medium", "long"];
+    const bodySizeOptions = ["none 🚫 / don't know 🤔", "small", "medium", "big"];
     const patternOptions = ["none 🚫 / don't know 🤔", "striped", "spotted", "speckled"];
     const legShapeOptions = ["none 🚫 / don't know 🤔", "normal", "webbed"];
     const tailShapeOptions = ["none 🚫 / don't know 🤔", "fan", "forked", "squared"];
@@ -83,6 +89,10 @@ const FormPage = () => {
         {
             label: 'Select beak shape:',
             component: <FormEntry property="Beak shape:" options={shapeOptions} helpContent={BeakShapeHelp()} selectedOption={bird.head.beakShape} propertySetter={setBeakShape}></FormEntry>
+        },
+        {
+            label: 'Select body size:',
+            component: <FormEntry property="Body size:" options={bodySizeOptions} helpContent={BodySizeHelp()} selectedOption={bird.body.size} propertySetter={setBodySize}></FormEntry>
         },
         {
             label: 'Select throat color:',
@@ -186,6 +196,7 @@ const FormPage = () => {
                                     <Button
                                         variant="contained"
                                         onClick={handleNext}
+                                        onKeyDown={handleNext}
                                         sx={{ mt: 1, mr: 1 }}
                                     >
                                         {index === steps.length - 1 ? 'Finish' : 'Continue'}
@@ -224,6 +235,36 @@ const FormPage = () => {
                     </Button>
                 </Paper>
             )}
+            <Box>
+            <Dialog open={submitPressed && !resultsLoaded}>
+                <DialogContent>
+                    <Grid container spacing={2}>
+                        <Grid item>
+                            <Typography>
+                                Please wait..
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <CircularProgress/>
+                        </Grid>
+                    </Grid>
+                </DialogContent>
+            </Dialog>
+            {(resultsLoaded && resultBirds.length > 0) && (
+                <Typography variant="h3" sx={{mb: 2}}>
+                    Results:
+                </Typography>
+            )}
+            {(resultsLoaded && resultBirds.length > 0) && resultBirds.map((bird) => (
+                <ResultCard birdSummary={bird}></ResultCard>
+            ))
+            || resultsLoaded && (
+                <Typography>
+                    No results found.
+                </Typography>
+            )}
+            </Box>
+            
         </Box>
     );
 }

@@ -70,6 +70,13 @@ export function BeakLengthHelp() {
     );
 }
 //Body
+export function BodySizeHelp() { 
+    return (<>
+    <p> The size of the bird.</p>
+    <p> Small is around sparrow or blackbird size, medium is as pigeons or crows and big is similar to eagles and geese </p>
+    </>
+    );
+}
 export function ThroatColorHelp() { 
     return (<>
     <p> Throat color refers to the color present in the area under the bird's beak. </p>
@@ -184,7 +191,7 @@ export function TailColorHelp() {
 export function TailLengthHelp() { 
     return (<>
     <p> Length of the bird's tail. </p>
-    <p> Small is around 2-5cm, medium 5-7cm and long `&gt;`7cm </p>
+    <p> Small is around 2-5cm, medium 5-7cm and long &gt;7cm </p>
     </>
     ); 
 }

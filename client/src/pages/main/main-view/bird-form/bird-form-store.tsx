@@ -13,6 +13,7 @@ export class BirdFormStore {
             beakLength: "none 🚫 / don't know 🤔",
         },
         body: {
+            size:  "none 🚫 / don't know 🤔",
             throatColor: "none 🚫 / don't know 🤔",
             breastColor: "none 🚫 / don't know 🤔",
             pattern: "none 🚫 / don't know 🤔",
@@ -35,6 +36,8 @@ export class BirdFormStore {
     };
     public resultBirds: BirdSummary[] = [];
     public activeStep: number = 0;
+    public submitPressed: boolean = false;
+    public resultsLoaded: boolean = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -50,6 +53,9 @@ export class BirdFormStore {
 
     public resetStep = () => {
         this.activeStep = 0;
+        this.submitPressed = false;
+        this.resultsLoaded = false;
+        this.resultBirds = [];
         this.resetProps();
     }
 
@@ -71,6 +77,10 @@ export class BirdFormStore {
 
     public setBeakLength = (value: string) => {
         this.bird.head.beakLength = value;
+    }
+
+    public setBodySize = (value: string) => {
+        this.bird.body.size = value;
     }
 
     public setThroatColor = (value: string) => {
@@ -122,14 +132,15 @@ export class BirdFormStore {
     }
 
     public submitDetails = async () => {
+        this.submitPressed = true;
         this.stripProps();
-        const result = await getBirdsWithProps(this.bird);
-        console.log(result);
-        this.resultBirds = result;
+        this.resultBirds = await getBirdsWithProps(this.bird);
+        
         for (var index in this.resultBirds) {
             console.log(JSON.stringify(this.resultBirds[index]));
         }
         this.resetProps();
+        this.resultsLoaded = true;
     }
 
     private resetProps = () => {
@@ -139,6 +150,7 @@ export class BirdFormStore {
         this.setBeakShape("none 🚫 / don't know 🤔");
         this.setBeakLength("none 🚫 / don't know 🤔");
 
+        this.setBodySize("none 🚫 / don't know 🤔");
         this.setThroatColor("none 🚫 / don't know 🤔");
         this.setBreastColor("none 🚫 / don't know 🤔");
         this.setColorPattern("none 🚫 / don't know 🤔");
@@ -163,6 +175,7 @@ export class BirdFormStore {
         this.setBeakShape(this.firstWord(this.bird.head.beakShape));
         this.setBeakLength(this.firstWord(this.bird.head.beakLength));
 
+        this.setBodySize(this.firstWord(this.bird.body.size));
         this.setThroatColor(this.firstWord(this.bird.body.throatColor));
         this.setBreastColor(this.firstWord(this.bird.body.breastColor));
         this.setColorPattern(this.firstWord(this.bird.body.pattern));

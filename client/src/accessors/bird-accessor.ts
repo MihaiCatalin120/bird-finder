@@ -2,10 +2,10 @@ import { BASE_URL } from "./constants";
 import { BirdDetails, BirdSummary } from "./types";
 import { httpGet } from "./helper-functions";
 
-const BIRD_URL = `${BASE_URL}birds`;
+const BIRD_URL = `${BASE_URL}birds/`;
 
 export const getBirdsWithProps = (details: BirdDetails) => {
-    var url: string = BIRD_URL;
+    var url: string = `${BIRD_URL}filter/`;
     var firstProp: boolean = true;
 
     
@@ -13,14 +13,14 @@ export const getBirdsWithProps = (details: BirdDetails) => {
     .forEach(([key, value]) => {
         Object.entries(value).forEach(([characteristic, charValue]) => {
             if(charValue === "none") return;
-            if(!firstProp) {
-                console.log(`${characteristic}${charValue}`);
-                url += `&${characteristic}=${charValue}`
-                return;
+            else if(!firstProp) {
+                console.log(`${key}${characteristic}=${charValue}`);
+                url += `&${key}${characteristic}=${charValue}`
             }
-            if(firstProp) {
-                url += `?${characteristic}=${charValue}`;
-                firstProp = true;
+            else {
+                console.log(`${key}${characteristic}=${charValue}`);
+                url += `?${key}${characteristic}=${charValue}`;
+                firstProp = false;
             }
         })
     });

@@ -7,6 +7,7 @@ export interface BirdDetails {
         beakLength: string;
     }
     body: {
+        size: string;
         throatColor: string;
         breastColor: string;
         pattern: string;
@@ -33,4 +34,5 @@ export interface BirdSummary {
     scientificName: string;
     wikiLink: string;
     rarity: string;
+    accuracy: number;
 }

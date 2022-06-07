@@ -127,5 +127,5 @@ dist
 /server/yarn-debug.log*
 /server/yarn-error.log*
 
-/server/images
+/server/public/images
 client/src/images
