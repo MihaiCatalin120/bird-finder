@@ -4,8 +4,6 @@ function findThreeBirds(progress, checkedElements, totalElements, birdDetails, d
     if(progress.noBirdsFound == 3 || depth > 3 || depth >= totalElements) return;
     const accuracy = checkedElements * 100 / totalElements;
 
-    console.log(birdDetails);
-
     Bird.find(birdDetails, { name: 1, scientificName: 1, wikiLink: 1, rarity: 1 })
       .then((data) => {
         var birds = [];
@@ -17,9 +15,11 @@ function findThreeBirds(progress, checkedElements, totalElements, birdDetails, d
                 const found = progress.birdsFound.some(el => el.name === bird.name);
                 if (!found) {
                     bird.accuracy = accuracy;
-                    progress.birdsFound.push(bird);
-                    progress.noBirdsFound++;
-                    if(progress.noBirdsFound == 3) return;
+                    if(progress.noBirdsFound < 3) {
+                        progress.birdsFound.push(bird);
+                        progress.noBirdsFound++;
+                    } 
+                    else return;
                 }
             })
             
@@ -28,7 +28,7 @@ function findThreeBirds(progress, checkedElements, totalElements, birdDetails, d
         Object.keys(birdDetails).forEach((key) => {
             var copyDetails = Object.assign({}, birdDetails);
             delete copyDetails[key];
-            findThreeBirds(progress, checkedElements - 1, totalElements, copyDetails, depth + 1);
+            findThreeBirds(progress, checkedElements - 1, totalElements, copyDetails, depth + 1, next);
         });
       })
       .catch(next);

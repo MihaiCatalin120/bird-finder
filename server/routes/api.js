@@ -51,7 +51,7 @@ router.get('/birds/filter', (req, res, next) => {
 
   helperFunctions.findThreeBirds(progress, checkedElements, progress.initialCheckedElements, birdQuery, 0, next);
 
-  setTimeout(() => {  console.log("done with recursion", progress.birdsFound); res.send(progress.birdsFound); }, 7000);
+  setTimeout(() => {  res.send(progress.birdsFound); }, 7000);
 });
 
 module.exports = router;

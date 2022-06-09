@@ -1,29 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const colorType = {
-  NOT_KNOWN: 'none',
-  BLACK: 'black',
-  WHITE: 'white',
-  RED: 'red',
-  GREEN: 'green',
-  BLUE: 'blue',
-  BROWN: 'brown',
-  BEIGE: 'beige',
-  PINK: 'pink',
-  ORANGE: 'orange',
-  GREY: 'grey'
-}
-
-const rarityType = {
-  COMMON: 'A',
-  UNCOMMON: 'B',
-  RARE: 'C',
-  VERY_RARE: 'D',
-  ONLY_IN_CAPTIVITY: 'E'
-}
-
-
 // Create schema for bird
 const BirdSchema = new Schema({
   name: {
@@ -62,10 +39,6 @@ const BirdSchema = new Schema({
     }
   },
   body: {
-    size : {
-      type: String,
-      required: [true, "The body size is required"],
-    },
     throatColor: {
       type: String,
       required: [true, 'The throat color is required'],
@@ -76,7 +49,11 @@ const BirdSchema = new Schema({
     },
     pattern: {
       type: String,
-      required: [true, 'The throat color is required'],
+      required: [true, 'The color pattern is required'],
+    },
+    size : {
+      type: String,
+      required: [true, "The body size is required"],
     }
   },
   wing: {

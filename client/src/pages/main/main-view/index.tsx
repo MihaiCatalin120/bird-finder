@@ -10,7 +10,7 @@ import DescriptionCard from "../../../components/description-card";
 import { Description1, Description2 } from "./description-contents";
 
 
-const MainPage= () => {
+const MainPage = () => {
     return <div>
         <Parallax pages={5}>
             <ParallaxLayer speed={0.5} offset={0} style={{

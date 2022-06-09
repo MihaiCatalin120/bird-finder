@@ -1,4 +1,4 @@
-import { Grid, Paper, Typography } from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 
 interface DescriptionCardProps {
     imageAlignment: "left" | "right";
@@ -25,7 +25,7 @@ const DescriptionCard = ({imageAlignment, imageURL, descriptionContent}: Descrip
                     {(imageAlignment === "left") && (
                         <img src={imageURL} width={350} height={500}></img>
                     ) || (
-                        <div>{descriptionContent}</div>
+                        <>{descriptionContent}</>
                     )}
                 </Grid>
                 <Grid item xs={rightXS} sx={{
@@ -38,7 +38,7 @@ const DescriptionCard = ({imageAlignment, imageURL, descriptionContent}: Descrip
                     {(imageAlignment === "right") && (
                         <img src={imageURL} width={350} height={500}></img>
                     ) || (
-                        <div>{descriptionContent}</div>
+                        <>{descriptionContent}</>
                     )}
                 </Grid>
             </Grid>

@@ -17,8 +17,8 @@ const ResultCard = ({ birdSummary }: ResultCardProps) => {
             <Grid item xs={3}>
                 <img src={`${IMAGES_URL}${birdSummary.name.toString().replace(/\s+/g, '')}.jpg`} width={300} height={200} alt={birdSummary.name}></img>
             </Grid>
-            <Grid container direction="column" item xs={9}>
-                <Grid item container spacing={1} alignItems='center' xs={3}>
+            <Grid container item direction="column" xs>
+                <Grid container item spacing={1} alignItems='center' xs={3}>
                     <Grid item>
                         <Typography variant="h6">
                             {birdSummary.name} 
@@ -67,4 +67,4 @@ const ResultCard = ({ birdSummary }: ResultCardProps) => {
     );
 }
 
-export default ResultCard
+export default ResultCard;

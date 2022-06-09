@@ -160,6 +160,7 @@ const FormPage = () => {
                         <li>If multiple colors are present on a part, choose the most predominant one.</li>
                         <li>You can always go back to a previous selected option.</li>
                     </ul>
+                    Notice: For now, we only have coverage over Romania's teritorry, with time we will add more later.
                 </Typography>
             </Box>
             <Stepper activeStep={activeStep} orientation="vertical">
