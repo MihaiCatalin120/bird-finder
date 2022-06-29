@@ -1,4 +1,5 @@
-import { Accordion, AccordionDetails, AccordionSummary, MenuItem, Select, SelectChangeEvent, Typography, Button } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, MenuItem, Select, SelectChangeEvent, Typography, Button, IconButton } from "@mui/material";
+import HelpIcon from '@mui/icons-material/Help';
 import { useState } from "react";
 
 interface FormEntryProps {
@@ -39,12 +40,12 @@ const FormEntry = ({ property, options, helpContent, selectedOption, propertySet
                         <MenuItem key={option} value={option}>{option}</MenuItem>
                     ))}
                 </Select>
-                <Button
+                <IconButton
                     sx={{ ml: "auto", mr: 0, my: "auto" }}
                     onClick={toggleHelp}
                 >
-                    Need help? Press me!
-                </Button>
+                    <HelpIcon />
+                </IconButton>
             </AccordionSummary>
             <AccordionDetails>
                 {helpContent}
