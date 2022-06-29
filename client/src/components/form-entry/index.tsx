@@ -1,4 +1,5 @@
-import { Accordion, AccordionDetails, AccordionSummary, MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, MenuItem, Select, SelectChangeEvent, Typography, Button } from "@mui/material";
+import { useState } from "react";
 
 interface FormEntryProps {
     property: string;
@@ -15,8 +16,13 @@ const FormEntry = ({ property, options, helpContent, selectedOption, propertySet
         selectedOption = event.target.value;
     };
 
+    const [expand, setExpand] = useState(false);
+    const toggleHelp = () => {
+        setExpand((prev) => !prev);
+    };
+
     return (
-        <Accordion>
+        <Accordion expanded={expand}>
             <AccordionSummary>
                 <Typography
                     sx={{ mt: 2, mr: 1 }}
@@ -33,11 +39,12 @@ const FormEntry = ({ property, options, helpContent, selectedOption, propertySet
                         <MenuItem key={option} value={option}>{option}</MenuItem>
                     ))}
                 </Select>
-                <Typography
+                <Button
                     sx={{ ml: "auto", mr: 0, my: "auto" }}
+                    onClick={toggleHelp}
                 >
-                    Need help?
-                </Typography>
+                    Need help? Press me!
+                </Button>
             </AccordionSummary>
             <AccordionDetails>
                 {helpContent}
